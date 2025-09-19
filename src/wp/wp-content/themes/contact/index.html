@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>お問い合わせ - サンプルサイト</title>
+    <meta name="description" content="サンプルサイトへのお問い合わせページです。ご質問やご相談がございましたらお気軽にお問い合わせください。" />
+    <link rel="stylesheet" href="/wp/wp-content/themes/my-theme/_assets/css/main.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/index/">ホーム</a></li>
+          <li><a href="/about/">会社概要</a></li>
+          <li><a href="/contact/">お問い合わせ</a></li>
+          <li><a href="/privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-header">
+        <h1>お問い合わせ</h1>
+        <p>ご質問やご相談がございましたら、お気軽にお問い合わせください。</p>
+      </section>
+
+      <section class="contact-info">
+        <h2>お問い合わせ方法</h2>
+        <div class="contact-methods">
+          <div class="contact-method">
+            <h3>お電話でのお問い合わせ</h3>
+            <p><strong>TEL:</strong> 03-1234-5678</p>
+            <p><strong>受付時間:</strong> 平日 9:00〜18:00（土日祝日を除く）</p>
+          </div>
+
+          <div class="contact-method">
+            <h3>メールでのお問い合わせ</h3>
+            <p><strong>Email:</strong> info@sample-site.com</p>
+            <p>お返事まで1〜2営業日いただく場合がございます。</p>
+          </div>
+
+          <div class="contact-method">
+            <h3>所在地</h3>
+            <p>
+              〒100-0001<br />
+              東京都千代田区千代田1-1-1<br />
+              サンプルビル 5F
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-form">
+        <h2>お問い合わせフォーム</h2>
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="name">お名前 <span class="required">*</span></label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">メールアドレス <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="company">会社名</label>
+            <input type="text" id="company" name="company" />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">電話番号</label>
+            <input type="tel" id="phone" name="phone" />
+          </div>
+
+          <div class="form-group">
+            <label for="subject">お問い合わせ種別 <span class="required">*</span></label>
+            <select id="subject" name="subject" required>
+              <option value="">選択してください</option>
+              <option value="service">サービスについて</option>
+              <option value="estimate">お見積りについて</option>
+              <option value="support">サポートについて</option>
+              <option value="other">その他</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">お問い合わせ内容 <span class="required">*</span></label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+
+          <div class="form-group privacy-check">
+            <label>
+              <input type="checkbox" name="privacy" required />
+              <a href="/privacy/" target="_blank">プライバシーポリシー</a>に同意する <span class="required">*</span>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="submit-button">送信する</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="faq">
+        <h2>よくあるご質問</h2>
+        <div class="faq-item">
+          <h3>Q. お見積りは無料ですか？</h3>
+          <p>A. はい、お見積りは無料で承っております。お気軽にお問い合わせください。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q. 対応可能な地域はありますか？</h3>
+          <p>A. 全国対応しております。リモートでのお打ち合わせも可能です。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q. 急ぎの案件にも対応できますか？</h3>
+          <p>A. 内容と状況によりますが、可能な限り対応いたします。まずはご相談ください。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 サンプルサイト All rights reserved.</p>
+      <nav>
+        <ul>
+          <li><a href="/privacy/">プライバシーポリシー</a></li>
+        </ul>
+      </nav>
+    </footer>
+
+    <!-- テーマJavaScript -->
+    <script src="/wp/wp-content/themes/my-theme/_assets/js/main.js" defer></script>
+  </body>
+</html>

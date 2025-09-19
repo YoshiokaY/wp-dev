@@ -1,0 +1,36 @@
+{
+  "name": "wp-dev",
+  "private": true,
+  "version": "1.5.1",
+  "type": "module",
+  "scripts": {
+    "// === WordPress開発コマンド ===": "",
+    "setup:new": "echo '🚀 新規WordPress環境を構築します' && npm run wp:up && sleep 15 && npm run wp:init",
+    "setup:restore": "echo '♻️  既存データから環境を復元します' && npm run wp:restore",
+    "// === 仮コマンド ===": "",
+    "copy": "npm run copy:static && echo '📦 静的ファイルのコピーが完了しました'",
+    "copy:static": "echo '📂 静的ファイルをコピー中...' && mkdir -p htdocs && cp -r src/* htdocs/",
+    "// === ユーティリティ ===": "",
+    "wp:up": "docker-compose up -d",
+    "wp:down": "docker-compose down",
+    "wp:init": "docker-compose run --rm wpcli sh /usr/local/bin/setup-wordpress.sh",
+    "wp:restore": "echo '📥 ダンプファイルからデータベースを復元します' && npm run wp:up && sleep 15",
+    "clean": "rm -rf .astro node_modules/.cache htdocs",
+    "destroy": "echo '⚠️  全データ削除します。5秒後に実行...' && sleep 5 && docker-compose down -v --remove-orphans && npm run clean"
+  },
+  "browserslist": [
+    "last 2 version",
+    "not dead"
+  ],
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "chokidar": "^4.0.1",
+    "npm-run-all2": "^7.0.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-organize-imports": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
