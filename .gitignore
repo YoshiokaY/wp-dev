@@ -1,0 +1,61 @@
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# gitkeep
+!/**/.gitkeep
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# macOS-specific files
+.DS_Store
+Thumbs.db
+
+# jetbrains setting folder
+.idea/
+
+# Local files
+CLAUDE.md
+package-lock.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
+
+# WordPressの一時ファイルのみ除外
+/public/wp/*
+!/public/wp/wp-content/
+/public/wp/wp-content/*
+!/public/wp/wp-content/uploads/
+!/public/wp/wp-content/plugins/
+
+# Lint/Test reports
+*-report.json
+eslint-report.json
+stylelint-report.json
+markuplint-report.json
+check/*
+!check/check.ts
+!check/check.auto.ts
+!check/design
+check/design/*
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
