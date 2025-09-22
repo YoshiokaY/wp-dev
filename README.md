@@ -88,7 +88,7 @@ wp-dev/
 │   │   └── Dockerfile
 │   └── wpcli/                 # WordPress CLI設定
 │       └── setup-wordpress.sh
-├── src/                       # ソースファイル
+├── src/                       # ソースファイル（仮）
 │   └── wp/
 │       └── wp-content/
 │           └── themes/
@@ -99,7 +99,7 @@ wp-dev/
 │                   └── _assets/
 │                       ├── css/
 │                       └── js/
-├── htdocs/                    # 出力ディレクトリ（自動生成）
+├── htdocs/                    # 出力ディレクトリ（仮）
 ├── docker-compose.yml         # Docker構成
 ├── package.json              # NPM設定
 └── .env                      # 環境変数
@@ -201,12 +201,15 @@ HTMLの`<h1>`タグの内容がページタイトルとして使用されます�
 ## 🔄 開発ワークフロー
 
 1. **静的サイト開発**: `src/`で通常の開発(好きなタスクランナーと組み合わせてください)
-2. **ファイルコピー**: `npm run copy`で`htdocs/`に出力
-3. **WordPress確認**: http://localhost:8080 でWordPress環境確認
-4. **テーマ調整**: `src/wp/wp-content/themes/my-theme/`でテーマ調整
+2. **テーマのマウントディレクトリを指定**: `.env`でテーマディレクトリを設定しましす。デフォルトだと`htdocs/wp/wp-content/themes`。エラーが起きないようにサンプルテーマを用意していますが、普段使っているものでも構いません。
+3. **静的htmlの出力先を指定**: `.env`で静的htmlがあるディレクトリを設定します。デフォルトだと`htdocs/wp/wp-content/themes`。配下のhtmlファイルを読み取ってWP初回セットアップ時に自動で固定ページを作成します。（ない場合は三つ作成します）
+4. **WordPress初回セットアップ**: `npm run setup:new`でWordPressのインストール、初期設定、プラグインのインストール、固定ページの作成が自動実行されます。
+5. **WordPress確認**: http://localhost:8080 でWordPress環境確認
+6. **テーマ調整**: `src/wp/wp-content/themes/my-theme/`でテーマ調整
 
 ## ⚠️ 注意事項
 
 - `npm run destroy`は全データを削除するため、実行前に確認してください
-- 開発環境は検索エンジンインデックスを無効化しています
+- 開発環境は検索エンジンインデックスを無効化しています。公開時にチェックを外すのを忘れないでください。
+- 監視タスクはあえて入れていない（browser-syncとchokidar自体は入っています）ので、各自の環境に合わせてカスタマイズしてください。
 
