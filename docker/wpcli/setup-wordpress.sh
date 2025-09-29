@@ -85,6 +85,16 @@ echo "🔒 検索エンジンのインデックスを無効化しました"
 wp option update thumbnail_crop 0
 echo "🖼️ サムネイルの実寸法切り抜きを無効化しました"
 
+# メディアの中サイズを無効化
+wp option update medium_size_w 0
+wp option update medium_size_h 0
+echo "📐 メディアの中サイズを無効化しました"
+
+# サムネイルサイズと大サイズの高さを制限なしに設定
+wp option update thumbnail_size_h 0
+wp option update large_size_h 0
+echo "📏 サムネイルサイズと大サイズの高さ制限を無効化しました"
+
 # コメント機能とアバター表示を無効化
 wp option update default_comment_status closed
 wp option update show_avatars 0
@@ -136,10 +146,11 @@ PLUGINS=(
     "all-in-one-seo-pack"     # All in One SEO
     "autoptimize"             # キャッシュ
     "ewww-image-optimizer"    # 画像軽量化
+    "siteguard"               # SiteGuard WP Plugin
 )
 
 # インストールのみ行うプラグイン（有効化はスキップ）
-INSTALL_ONLY_PLUGINS=("autoptimize" "all-in-one-seo-pack" "ewww-image-optimizer")
+INSTALL_ONLY_PLUGINS=("autoptimize" "all-in-one-seo-pack" "ewww-image-optimizer" "siteguard")
 
 for plugin in "${PLUGINS[@]}"; do
     if wp plugin is-installed $plugin; then
