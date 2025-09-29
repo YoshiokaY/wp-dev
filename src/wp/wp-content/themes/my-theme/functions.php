@@ -29,8 +29,6 @@ function my_theme_setup() {
     // HTML5マークアップサポート
     add_theme_support('html5', array(
         'search-form',
-        'comment-form',
-        'comment-list',
         'gallery',
         'caption',
         'style',
@@ -75,7 +73,7 @@ function my_theme_scripts() {
     // メインスタイル
     wp_enqueue_style(
         'my-theme-main',
-        get_template_directory_uri() . '/_assets/css/main.css',
+        get_template_directory_uri() . '/assets/css/app.css',
         array('my-theme-style'),
         wp_get_theme()->get('Version')
     );
@@ -83,7 +81,7 @@ function my_theme_scripts() {
     // メインJavaScript
     wp_enqueue_script(
         'my-theme-main-js',
-        get_template_directory_uri() . '/_assets/js/main.js',
+        get_template_directory_uri() . '/assets/js/app.js',
         array(), // 依存関係（jQueryなど必要に応じて追加）
         wp_get_theme()->get('Version'),
         true // フッターで読み込み
@@ -95,16 +93,6 @@ add_action('wp_enqueue_scripts', 'my_theme_scripts');
  * ウィジェットエリアの登録
  */
 function my_theme_widgets_init() {
-    // サイドバーウィジェットは使用しないため削除
-    // register_sidebar(array(
-    //     'name'          => 'サイドバー',
-    //     'id'            => 'sidebar-1',
-    //     'description'   => 'サイドバーに表示されるウィジェット',
-    //     'before_widget' => '<section id="%1$s" class="widget %2$s">',
-    //     'after_widget'  => '</section>',
-    //     'before_title'  => '<h2 class="widget-title">',
-    //     'after_title'   => '</h2>',
-    // ));
 
     register_sidebar(array(
         'name'          => 'フッターエリア',

@@ -31,7 +31,7 @@ WORDPRESS_DB_PASSWORD=wppassword
 WORDPRESS_DB_HOST=db:3306
 
 # WordPress管理者設定
-WORDPRESS_ADMIN_USER=my_site@nadia
+WORDPRESS_ADMIN_USER=site@admin
 WORDPRESS_ADMIN_PASSWORD=fM4@o0dKceZP
 WORDPRESS_ADMIN_EMAIL=admin@example.com
 
@@ -92,17 +92,14 @@ wp-dev/
 │   └── wp/
 │       └── wp-content/
 │           └── themes/
-│               └── my-theme/  # WordPressテーマ
+│               └── my-theme/  # サンプルテーマ
 │                   ├── functions.php
 │                   ├── style.css
-│                   ├── index.php
-│                   └── _assets/
-│                       ├── css/
-│                       └── js/
+│                   └── index.php
 ├── htdocs/                    # 出力ディレクトリ（仮）
 ├── docker-compose.yml         # Docker構成
-├── package.json              # NPM設定
-└── .env                      # 環境変数
+├── package.json               # NPM設定（マージ先のタスクランナーと統合してください）
+└── .env                       # 環境変数
 ```
 
 ## 🎨 WordPressサンプルテーマ機能
@@ -153,15 +150,61 @@ export default defineConfig({
 
 ### Webpack との連携
 
+nadia web starter kitに統合する場合、以下の設定を変更してください：
+
 ```javascript
 // webpack.config.js
 module.exports = {
+  // ... 他の設定（entry, module, optimization等）は省略 ...
+
   output: {
-    path: path.resolve(__dirname, 'htdocs'),
+    // アセットファイルの出力先をWordPressテーマディレクトリに変更
+    assetModuleFilename: (assetInfo) => {
+      return path.join("wp/wp-content/themes/my-theme/", assetInfo.filename.replace(/^(src\/)/, ""));
+    },
+    // ... 他のoutput設定は省略 ...
   },
-  // その他の設定...
+  plugins: [
+    // ... 他のプラグイン設定は省略 ...
+
+    new HtmlBundlerPlugin({
+      entry: "src/views/pages",
+      js: {
+        // JSファイルの出力先をWordPressテーマディレクトリに変更
+        filename: "wp/wp-content/themes/my-theme/assets/js/[name].js",
+      },
+      css: {
+        // CSSファイルの出力先をWordPressテーマディレクトリに変更
+        filename: "wp/wp-content/themes/my-theme/assets/css/app.css",
+      },
+      preprocessor: preprocessor,
+    }),
+
+    // ... 他のプラグイン設定は省略 ...
+  ],
+  devServer: {
+    devMiddleware: {
+      // 開発サーバーでファイルをディスクに書き込み
+      writeToDisk: true,
+    },
+    // WordPressプロキシ設定
+    proxy: [
+      {
+        context: ['/wp'],
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      }
+    ],
+    // ... 他のdevServer設定は省略 ...
+  },
 };
 ```
+
+**変更点：**
+- `writeToDisk: true` - 開発時にもファイルをディスクに書き込み
+- `assetModuleFilename` - アセットファイルをWordPressテーマディレクトリに出力
+- JSとCSSの`filename` - WordPressテーマディレクトリに出力
+- `proxy` - WordPressへのプロキシ設定を追加してホットリロードさせる
 
 ## 📱 アクセス情報
 
@@ -169,7 +212,6 @@ module.exports = {
 
 - **フロントエンド**: http://localhost:8080
 - **WordPress管理画面**: http://localhost:8080/wp/wp-admin
-- **管理者ログイン**: my_site@nadia / fM4@o0dKceZP
 
 ## 🐛 デバッグ
 
@@ -211,5 +253,5 @@ HTMLの`<h1>`タグの内容がページタイトルとして使用されます�
 
 - `npm run destroy`は全データを削除するため、実行前に確認してください
 - 開発環境は検索エンジンインデックスを無効化しています。公開時にチェックを外すのを忘れないでください。
-- 監視タスクはあえて入れていない（browser-syncとchokidar自体は入っています）ので、各自の環境に合わせてカスタマイズしてください。
+- 監視タスクはあえて入れていないため（browser-syncとchokidar自体は入っています）、各自の環境に合わせてカスタマイズしてください。
 
